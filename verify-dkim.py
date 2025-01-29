@@ -5,12 +5,12 @@ import sys
 from base64 import b64encode, b64decode
 import email
 import email.message
-from Crypto.Signature import PKCS1_v1_5
-from Crypto.Hash import SHA256
-from Crypto.PublicKey import RSA
-from Crypto.Util.asn1 import DerSequence, DerNull, DerOctetString, DerObjectId
-import Crypto.Util
-from Crypto.Util.number import bytes_to_long, long_to_bytes
+from Cryptodome.Signature import PKCS1_v1_5
+from Cryptodome.Hash import SHA256
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Util.asn1 import DerSequence, DerNull, DerOctetString, DerObjectId
+import Cryptodome.Util
+from Cryptodome.Util.number import bytes_to_long, long_to_bytes
 import dns.resolver
 
 
@@ -119,7 +119,7 @@ def pkcs1_v1_5_encode(msg_hash: SHA256.SHA256Hash, emLen: int) -> bytes:
 
 
 def verify_signature(hashed_header: SHA256.SHA256Hash, signature: bytes, public_key: RSA.RsaKey) -> bool:
-    modBits = Crypto.Util.number.size(public_key.n)
+    modBits = Cryptodome.Util.number.size(public_key.n)
     emLen = modBits // 8
 
     signature_long = bytes_to_long(signature)
